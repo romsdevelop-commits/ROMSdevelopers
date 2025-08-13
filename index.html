@@ -345,7 +345,7 @@
         // Manejo del formulario de contacto con EmailJS
         document.getElementById('contact-form').addEventListener('submit', function(e) {
             e.preventDefault();
-            emailjs.sendForm('OuhE0CCDj9pvujnS7', 'template_xyz789', this)
+            emailjs.sendForm('service_iccvsge', 'template_xyz789', this)
                 .then(() => {
                     window.location.href = 'gracias.html';
                 }, (error) => {
@@ -356,3 +356,4 @@
 </body>
 
 </html>
+
