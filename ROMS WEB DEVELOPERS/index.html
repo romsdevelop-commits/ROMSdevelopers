@@ -1,0 +1,357 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WebDiscord Solutions - Creación de Páginas Web y Servidores de Discord</title>
+    <script type="text/javascript" src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+    <script type="text/javascript">
+        (function() {
+            emailjs.init("user_123456789"); // Reemplaza con tu Public Key
+        })();
+    </script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+    <style>
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        body {
+            font-family: 'Poppins', sans-serif;
+            background: linear-gradient(135deg, #f0f4f8, #e0e7ff);
+            color: #1a2a44;
+            line-height: 1.6;
+        }
+        header {
+            background: linear-gradient(135deg, #4b6cb7, #1e3a8a);
+            color: white;
+            text-align: center;
+            padding: 60px 20px;
+            position: relative;
+            overflow: hidden;
+        }
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 255, 255, 0.3), transparent 70%);
+            opacity: 0.5;
+            animation: pulse 10s infinite;
+        }
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        header h1 {
+            font-size: 2.5em;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        header p {
+            font-size: 1.2em;
+            font-weight: 400;
+        }
+        nav {
+            background: linear-gradient(90deg, #1e3a8a, #4b6cb7);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            display: flex;
+            justify-content: center;
+            padding: 10px 0;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            padding: 15px 25px;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        nav a:hover {
+            background: rgba(255, 255, 255, 0.2);
+            transform: translateY(-2px);
+        }
+        section {
+            padding: 40px 20px;
+            margin: 30px auto;
+            max-width: 1200px;
+            background: white;
+            border-radius: 15px;
+            box-shadow: 0 6px 20px rgba(0,0,0,0.1);
+        }
+        h2 {
+            color: #1e3a8a;
+            font-size: 2.2em;
+            font-weight: 600;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+        .packages {
+            display: grid;
+            grid-template-columns: 1fr;
+            gap: 25px;
+        }
+        .package {
+            background: linear-gradient(145deg, #ffffff, #f0f8ff);
+            border-radius: 15px;
+            padding: 25px;
+            text-align: center;
+            transition: all 0.3s ease;
+            border: 1px solid #e0e7ff;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+        }
+        .package:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.15);
+        }
+        .package img {
+            width: 200px;
+            height: auto;
+            border-radius: 10px;
+            margin-bottom: 20px;
+            object-fit: cover;
+        }
+        .package h3 {
+            color: #1a2a44;
+            font-size: 1.6em;
+            font-weight: 600;
+            margin-bottom: 10px;
+        }
+        .package p {
+            color: #4b5e7e;
+            font-size: 1em;
+            margin-bottom: 15px;
+        }
+        .package button {
+            background: linear-gradient(90deg, #4b6cb7, #1e3a8a);
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 10px;
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            margin-top: auto; /* Empuja el botón hacia abajo */
+        }
+        .package button:hover {
+            background: linear-gradient(90deg, #355e9e, #1e3a8a);
+            transform: scale(1.05);
+        }
+        .social-banners {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .social-banners a {
+            display: inline-block;
+            margin: 15px;
+            transition: transform 0.3s ease;
+        }
+        .social-banners a:hover {
+            transform: scale(1.1);
+        }
+        .social-banners img {
+            width: 100%;
+            max-width: 100px;
+            height: auto;
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            max-width: 500px;
+            margin: 20px auto;
+        }
+        form label {
+            font-weight: 500;
+            color: #1e3a8a;
+        }
+        form input, form textarea, form select {
+            padding: 12px;
+            border: 1px solid #d1d5db;
+            border-radius: 10px;
+            font-size: 1em;
+            width: 100%;
+            transition: border-color 0.3s ease;
+        }
+        form input:focus, form textarea:focus, form select:focus {
+            border-color: #4b6cb7;
+            outline: none;
+        }
+        form textarea {
+            min-height: 120px;
+            resize: vertical;
+        }
+        form button {
+            background: linear-gradient(90deg, #4b6cb7, #1e3a8a);
+            color: white;
+            border: none;
+            padding: 12px;
+            border-radius: 10px;
+            cursor: pointer;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+        form button:hover {
+            background: linear-gradient(90deg, #355e9e, #1e3a8a);
+            transform: scale(1.05);
+        }
+        footer {
+            background: linear-gradient(90deg, #1e3a8a, #4b6cb7);
+            color: white;
+            text-align: center;
+            padding: 20px;
+            font-size: 1em;
+            margin-top: 30px;
+        }
+        @media (min-width: 768px) {
+            .packages {
+                grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            }
+            nav a {
+                padding: 15px 30px;
+            }
+            section {
+                padding: 60px 30px;
+            }
+            .social-banners a {
+                margin: 15px;
+            }
+        }
+        @media (max-width: 480px) {
+            header h1 {
+                font-size: 2em;
+            }
+            header p {
+                font-size: 1em;
+            }
+            nav a {
+                padding: 10px;
+            }
+            .package img {
+                width: 150px;
+            }
+            .package button {
+                width: 100%;
+            }
+            form {
+                margin: 20px 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>romswebdevelopers</h1>
+        <p>Especialistas en la creación de páginas web y servidores de Discord personalizados.</p>
+    </header>
+
+    <nav>
+        <a href="#about">Sobre Nosotros</a>
+        <a href="#packages">Paquetes</a>
+        <a href="#social">Redes Sociales</a>
+        <a href="#contact">Contacto</a>
+    </nav>
+
+    <section id="about">
+        <h2>Sobre Nosotros</h2>
+        <p>Somos una empresa dedicada a ayudar a individuos y negocios a establecer su presencia en línea. Ofrecemos servicios de diseño y desarrollo de páginas web modernas, responsivas y optimizadas, así como la configuración y personalización de servidores de Discord para comunidades, gaming o negocios.</p>
+        <p>Con años de experiencia, nuestro equipo de expertos asegura que cada proyecto sea único y cumpla con tus expectativas.</p>
+    </section>
+
+    <section id="packages">
+        <h2>Nuestros Paquetes</h2>
+        <div class="packages">
+            <div class="package">
+                <img src="htmlwebb.png" alt="Paquete Básico">
+                <h3>Paquete Básico</h3>
+                <p>Página web simple de una sola página. </p>
+                <p>Precio: $150</p>
+                <button data-package="basico">Contratar</button>
+            </div>
+            <div class="package">
+                <img src="htmlwebb.png" alt="Paquete Estándar">
+                <h3>Paquete Estándar</h3>
+                <p>Página web con animaciones y efectos visuales. </p>
+                <p>Precio: $400</p>
+                <button data-package="estandar">Contratar</button>
+            </div>
+            <div class="package">
+                <img src="htmlwebb.png" alt="Paquete Premium">
+                <h3>Paquete Premium</h3>
+                <p>Sin limites de diseño web</p>
+                <p>Precio: $800</p>
+                <button data-package="premium">Contratar</button>
+            </div>
+            <div class="package">
+                <img src="descargar.png" alt="Servidor de discord">
+                <h3>Discord Server</h3>
+                <p>Servidor de Dicord con bots y moderación integrados (sin nitroboost)</p>
+                <p>Precio: $250</p>
+                <button data-package="servidor de discord">Contratar</button>
+            </div>
+        </div>
+    </section>
+
+    <section id="social">
+        <h2>Redes Sociales</h2>
+        <p>Síguenos en nuestras redes para estar al tanto de novedades y ofertas.</p>
+        <div class="social-banners">
+            <a href="https://www.instagram.com/romswebdevelopers/?utm_source=ig_web_button_share_sheet" target="_blank">
+                <img src="Instagram_icon.png" alt="Banner de Instagram">
+            </a>
+            <a href="https://discord.gg/GgStZUAtRG" target="_blank">
+                <img src="descargar.png" alt="Banner de Discord">
+            </a>
+        </div>
+    </section>
+
+    <section id="contact">
+        <h2>Datos de Contacto</h2>
+        <p>Correo: <a href="romsdevelop@gmail.com" style="color: #4b6cb7;">romsdevelop@gmail.com</a></p>
+        <p>Teléfono: <a href="tel:+52 55 7637 3084 " style="color: #4b6cb7;">+52 55 7637 3084</a></p>
+        <form id="contact-form">
+            <label for="name">Nombre:</label>
+            <input type="text" id="name" name="from_name" required>
+            <label for="email">Correo:</label>
+            <input type="email" id="email" name="from_email" required>
+            <label for="phone">Número de contacto:</label>
+            <input type="tel" id="phone" name="phone" placeholder="Ejemplo: +1234567890" pattern="[0-9]{10}" required>
+            <label for="message">Mensaje:</label>
+            <textarea id="message" name="message" required></textarea>
+            <button type="submit">Enviar</button>
+        </form>
+    </section>
+
+    <footer>
+        <p>&copy; 2025 ROMS web developers. Todos los derechos reservados.</p>
+    </footer>
+
+    <script>
+        // Manejo de los botones de contratar
+        document.querySelectorAll('.package button').forEach(button => {
+            button.addEventListener('click', function() {
+                const package = this.getAttribute('data-package');
+                window.location.href = `contratar.html?package=${package}`;
+            });
+        });
+
+        // Manejo del formulario de contacto con EmailJS
+        document.getElementById('contact-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            emailjs.sendForm('service_abc123', 'template_xyz789', this)
+                .then(() => {
+                    window.location.href = 'gracias.html';
+                }, (error) => {
+                    alert('Error al enviar el mensaje: ' + error.text);
+                });
+        });
+    </script>
+</body>
+</html>
